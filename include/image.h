@@ -2,7 +2,7 @@
  * @file image.h
  * @brief Cabecera para la clase Image
  */
-//he borrao el comentario
+
 #ifndef _IMAGEN_H_
 #define _IMAGEN_H_
 
@@ -252,7 +252,9 @@ public :
     * @param in2 Umbral superior de la imagen de entrada
     * @param out1 Umbral inferior de la imagen de salida
     * @param out2 Umbral superior de la imagen de salida
-     * @pre .........
+    * @pre 0 <= (in1, in2, out1, out2) <= 255
+    * @pre in1 < in2
+    * @pre out1 < out2
     * @post El objeto que llama a la función es modificado
     */
     void AdjustContrast (byte in1, byte in2, byte out1, byte out2);
