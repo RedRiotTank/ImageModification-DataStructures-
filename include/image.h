@@ -2,7 +2,7 @@
  * @file image.h
  * @brief Cabecera para la clase Image
  */
-//Borrar comentario
+//he borrao el comentario
 #ifndef _IMAGEN_H_
 #define _IMAGEN_H_
 
