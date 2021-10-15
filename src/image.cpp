@@ -200,9 +200,11 @@ double Image::Mean (int i, int j, int height, int width) const{
 
     int divisor = 0;
     double sumatorio = 0;
+    int p = i + height -1;
+    int q = j + width -1;
 
-    for (int a=i; a<=(height); a++){
-        for(int b=j; b<=(width); b++) {
+    for (int a=i; a<=(p); a++){
+        for(int b=j; b<=(q); b++) {
             sumatorio += get_pixel(a, b);
             divisor++;
         }
@@ -220,7 +222,7 @@ Image Image::Subsample(int factor) const{
 
     for (int i=0; i<NewImg.get_rows(); i++)
         for(int j=0; j<NewImg.get_cols(); j++)
-            NewImg.set_pixel(i,j,Mean(i*factor,j*factor,i*factor+factor-1,j*factor+factor-1));
+            NewImg.set_pixel(i,j,Mean(i*factor,j*factor,factor,factor));
 
     return NewImg;
 }
