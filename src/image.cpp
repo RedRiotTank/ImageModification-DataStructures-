@@ -177,56 +177,130 @@ Image Image::Crop(int nrow, int ncol, int height, int width) const{
     return nueva;
 }
 
-Image Image::Zoom2X() const{
 
-}
 
-void Image::AdjustContrast (byte in1, byte in2, byte out1, byte out2){
-    int dif_extremos_iniciales = in2 - in1, // b -a
-    dif_extremos_finales = out2 - out1; //max - min
-    byte resultado;
+void Image::AdjustContrast (byte in1, byte in2, byte out1, byte out2) {
+    const byte max_byte = 255;
+    float cociente;
+    float resultado;
+    byte pixel_actual;
 
-    for (int f = 0; f < rows; f++)
-        for (int c = 0; c < cols; c++){
-            resultado = round(out1 + ((dif_extremos_finales/dif_extremos_iniciales) * (get_pixel(f,c) - in1)));
-            set_pixel(f,c,resultado);
+    for (int i = 0; i < rows * cols; i++) {
+        pixel_actual = (float) get_pixel(i);
+
+        if (pixel_actual < in1) {
+            cociente = (((float) out1) / (in1));
+            resultado = (cociente * pixel_actual); //comprobado
+        } else if (pixel_actual <= in2) {
+            cociente = ((float) (out2 - out1) / (in2 - in1));
+            resultado = out1 + (cociente * (pixel_actual - in1)); //comprobado
+        } else {
+            cociente = ((float) (max_byte - out2) / (max_byte - in2));
+            resultado = out2 + (cociente * (pixel_actual - in2));
         }
-
+        set_pixel(i, round(resultado));
+    }
 }
 
 //Métodos alberto
 
-double Image::Mean (int i, int j, int height, int width) const{
+double Image::Mean (int i, int j, int height, int width) const{ //0,2,1,3
 
-    int divisor = 0;
+    int divisor = height*width;
     double sumatorio = 0;
-    int p = i + height -1;
-    int q = j + width -1;
-
-    for (int a=i; a<=(p); a++){
-        for(int b=j; b<=(q); b++) {
+    int p = i + height -1;  //0
+    int q = j + width -1;   //4
+    double devuelve;
+    for (int a=i; a<=(p); a++){ //a=0       //1 iter 1º iter
+        for(int b=j; b<=(q); b++) { //b=3   //3 iter 1º iter    2º iter 3ºiter
             sumatorio += get_pixel(a, b);
-            divisor++;
+
         }
     }
 
-    return round(sumatorio / divisor);
+    if(height == 1 && width == 3 && this->get_pixel(i,j+1) == 0)        //Exclusivo para el método zoom.
+        divisor--;
 
+    if(height == 3 && width == 1 && this->get_pixel(i+1,j) == 0)
+        divisor--;
+
+    //SACAR ESTO DE ESTE METODO Y METERLO EN EL DE ZOOM DE ALGUNA FORMA.
+    if(height == 3 && width == 3 && this->get_pixel(i+1,j+1) ==0)
+        divisor = divisor - 5;
+
+    devuelve = sumatorio / divisor;
+    return devuelve;
 }
 
 Image Image::Subsample(int factor) const{
     int NewNfil = rows/factor ;
     int NewNcol = cols/factor;
     Image NewImg;
+
     NewImg.Initialize(NewNfil,NewNcol);
 
     for (int i=0; i<NewImg.get_rows(); i++)
         for(int j=0; j<NewImg.get_cols(); j++)
-            NewImg.set_pixel(i,j,Mean(i*factor,j*factor,factor,factor));
+            NewImg.set_pixel(i,j,round(Mean(i*factor,j*factor,factor,factor)));
 
     return NewImg;
 }
 
+Image Image::Zoom2X() const{
+    int Newfil = 2*this->get_rows() - 1;
+    int Newcol = 2*this->get_cols() - 1;
+    Image ZoomedImg;
 
+    ZoomedImg.Initialize(Newfil,Newcol);
+
+    //Copiado de valores estandard
+    for(int i=0; i<this->get_rows(); i++)
+        for(int j=0; j<this->get_cols(); j++)
+            ZoomedImg.set_pixel(2*i,2*j,this->get_pixel(i,j));
+
+
+    //Interpolacion de las columnas:
+
+
+
+
+    for(int j=1; j<ZoomedImg.get_cols(); j=j+2){
+        for(int i=1; i<ZoomedImg.get_rows(); i=i+2 ){
+
+            ZoomedImg.set_pixel(i,j,round(ZoomedImg.Mean(i-1,j-1,3,3)));
+        }
+    }
+
+
+    for(int i=1; i<ZoomedImg.get_cols(); i = i+2){
+        ZoomedImg.set_pixel(0,i,round(ZoomedImg.Mean(0,i-1,1,3)));
+        ZoomedImg.set_pixel(ZoomedImg.get_rows()-1,i,round(ZoomedImg.Mean(ZoomedImg.get_rows()-1,i-1,1,3)));
+    }
+
+    for(int i=1; i<ZoomedImg.get_rows(); i = i+2){
+        ZoomedImg.set_pixel(i,0,round(ZoomedImg.Mean(i-1,0,3,1)));
+        ZoomedImg.set_pixel(i,ZoomedImg.get_cols()-1,round(ZoomedImg.Mean(i-1,ZoomedImg.get_cols()-1,3,1)));
+    }
+
+    for(int i=1; i<ZoomedImg.get_rows(); i=i+2){
+
+        for(int j=2; j<ZoomedImg.get_cols();j=j+2){
+
+            ZoomedImg.set_pixel(i,j,round(ZoomedImg.Mean(i-1,j,3,1)));
+        }
+    }
+
+    for(int i=2; i<ZoomedImg.get_rows(); i=i+2){
+
+        for(int j=1; j<ZoomedImg.get_cols();j=j+2){
+
+            ZoomedImg.set_pixel(i,j,round(ZoomedImg.Mean(i,j-1,1,3)));
+        }
+    }
+
+
+
+    return ZoomedImg;
+}
 
 

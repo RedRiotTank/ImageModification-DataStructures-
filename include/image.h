@@ -50,7 +50,7 @@ class Image{
       RELLENAR POR ESTUDIANTE
     **/
 
-private :
+public :        //PONER A PRIVATE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
 
     /**
       @brief Puntero a la imagen almacenada
