@@ -244,6 +244,10 @@ public :
     bool Load(const char *file_path);
 
     // Invierte
+    /**
+      * @brief Invierte el color de una imagenn.
+      * @post El objeto que llama a la función es modificado
+      */
     void Invert();
 
     /**

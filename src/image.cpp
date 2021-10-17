@@ -161,9 +161,10 @@ bool Image::Save(const char *file_path) const {
 }
 
 //Métodos implementados
-
 void Image::Invert() {
-    for (int i = 0; i < size(); i++)
+    int tam = size();
+
+    for (int i = 0; i < tam; i++)
         set_pixel(i, 255 - get_pixel(i));
 }
 
@@ -189,10 +190,10 @@ void Image::AdjustContrast(byte in1, byte in2, byte out1, byte out2) {
 
         if (pixel_actual < in1) {
             cociente = (((float) out1) / (in1));
-            resultado = (cociente * pixel_actual); //comprobado
+            resultado = (cociente * pixel_actual);
         } else if (pixel_actual <= in2) {
             cociente = ((float) (out2 - out1) / (in2 - in1));
-            resultado = out1 + (cociente * (pixel_actual - in1)); //comprobado
+            resultado = out1 + (cociente * (pixel_actual - in1));
         } else {
             cociente = ((float) (max_byte - out2) / (max_byte - in2));
             resultado = out2 + (cociente * (pixel_actual - in2));
@@ -271,5 +272,18 @@ Image Image::Zoom2X() const {
 
     return ZoomedImg;
 }
+
+void Image::ShuffleRows(){
+    const int p = 9973;
+    Image temp(rows,cols);
+    int newr;
+    for (int r=0; r<rows; r++){
+        newr = r*p%rows;
+        for (int c=0; c<cols;c++)
+            temp.set_pixel(r,c,get_pixel(newr,c));
+    }
+    Copy(temp);
+}
+
 
 
