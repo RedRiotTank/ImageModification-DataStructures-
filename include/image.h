@@ -13,7 +13,7 @@
 
 typedef unsigned char byte;
 
-enum LoadResult: unsigned char {
+enum LoadResult : unsigned char {
     SUCCESS,
     NOT_PGM,
     READING_ERROR
@@ -37,7 +37,7 @@ enum LoadResult: unsigned char {
 
 **/
 
-class Image{
+class Image {
     /**
       @page repImagen Representación del TDA Imagen .
 
@@ -80,14 +80,14 @@ public :        //PONER A PRIVATE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
       @pre filas >= O y columnas >= O
       @post Reserva memoria para almacenar la imagen y la prepara para usarse.
     **/
-    void Initialize (int nrows= 0, int ncols= 0, byte *buffer= 0);
+    void Initialize(int nrows = 0, int ncols = 0, byte *buffer = 0);
 
     /**
       @brief Lee una imagen PGM desde un archivo.
       @param file_path Ruta del archivo a leer
       @return LoadResult
     **/
-    LoadResult LoadFromPGM(const char * file_path);
+    LoadResult LoadFromPGM(const char *file_path);
 
     /**
       @brief Copy una imagen .
@@ -105,7 +105,7 @@ public :        //PONER A PRIVATE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
       @pre nrows >= O y ncols >= O
       @post Reserva memoria para almacenar la imagen y la prepara para usarse.
     **/
-    void Allocate(int nrows, int ncols, byte * buffer = 0);
+    void Allocate(int nrows, int ncols, byte *buffer = 0);
 
     /**
       * @brief Destroy una imagen
@@ -133,21 +133,21 @@ public :
       * @post La imagen creada es de n_fils y n_cols columnas. Estará inicializada al valor por defecto.
       * @return Imagen, el objeto imagen creado.
       */
-    Image(int nrows, int ncols, byte value=0);
+    Image(int nrows, int ncols, byte value = 0);
 
     /**
       * @brief Constructor de copias.
       * @param orig Referencia a la imagen original que se quiere copiar.
       * @return Imagen, el objeto imagen creado.
       */
-    Image (const Image & orig);
+    Image(const Image &orig);
 
     /**
       * @brief Oper ador de tipo destructor.
       * @return void
       * @post El objeto Imagen destruido no puede usarse salvo que se haga sobre él una operacion Imagen().
       */
-    ~Image() ;
+    ~Image();
 
     /**
       * @brief Operador de asignación .
@@ -155,7 +155,7 @@ public :
       * @return Una referencia al objeto imagen modificado.
       * @post Destroy cualquier información que contuviera previamente la imagen que llama al operador de asignación.
       */
-    Image & operator= (const Image & orig);
+    Image &operator=(const Image &orig);
 
     /**
       * @brief Funcion para conocer si una imagen está vacía.
@@ -195,7 +195,7 @@ public :
       * @post El píxel (fil, col) de la imagen se modificará y contendrá valor.
       * Los demás píxeles permanecerán iguales.
       */
-    void set_pixel (int i, int j, byte value);
+    void set_pixel(int i, int j, byte value);
 
     /**
       * @brief Consulta el valor del píxel (fil, col) de la imagen.
@@ -205,7 +205,7 @@ public :
       * @return el valor del píxel contenido en (fil,col)
       * @post La imagen no se modifica.
       */
-    byte get_pixel (int i, int j) const;
+    byte get_pixel(int i, int j) const;
 
     /**
       * @brief Consulta el valor del píxel k de la imagen desenrrollada.
@@ -214,7 +214,7 @@ public :
       * @return el valor del píxel contenido en (k/filas,k%filas)
       * @post La imagen no se modifica.
       */
-    byte get_pixel (int k) const;
+    byte get_pixel(int k) const;
 
     /**
       * @brief Asigna el valor valor al píxel k de la imagen desenrollada.
@@ -223,7 +223,7 @@ public :
       * @pre 0 <= k < filas*columnas && O <= valor <= 255
       * @post El píxel k se modificará con el valor de value.
       */
-    void set_pixel (int k, byte value);
+    void set_pixel(int k, byte value);
 
     /**
       * @brief Almacena imágenes en disco.
@@ -232,7 +232,7 @@ public :
       * @return Devuelve true si la imagen se almacenó con éxito y false en caso contrario.
       * @post La imagen no se modifica.
       */
-    bool Save (const char * file_path) const;
+    bool Save(const char *file_path) const;
 
     /**
       * @brief Carga en memoria una imagen de disco .
@@ -241,7 +241,7 @@ public :
       * @return Devuelve true si la imagen se carga con éxito y false en caso contrario.
       * @post La imagen previamente almacenada en el objeto que llama a la función se destruye.
       */
-    bool Load (const char * file_path);
+    bool Load(const char *file_path);
 
     // Invierte
     void Invert();
@@ -257,12 +257,39 @@ public :
     * @pre out1 < out2
     * @post El objeto que llama a la función es modificado
     */
-    void AdjustContrast (byte in1, byte in2, byte out1, byte out2);
+    void AdjustContrast(byte in1, byte in2, byte out1, byte out2);
 
     // Calcula la media de los píxeles de una imagen entera o de un fragmento de ésta.
-    double Mean (int i, int j, int height, int width) const;
+    /**
+   * @brief Calcula la media de los píxeles de una imagen entera o de un fragmento de ésta
+   * @param i Fila superior izquierda del fragmeto de imagen al que hacer la media
+   * @param j Columna superior izquierda del fragmeto de imagen al que hacer la media
+   * @param height Altura hacia abajo
+   * @param width Ancho hacia la derecha
+   * @pre Tomar siempre como referencia para contar el pixel superior izquierdo (i,j)
+   * @pre 0 <= (i && j)
+   * @pre (i && height) <= this->get_rows()
+   * @pre (j && width) <= this->get_cols()
+   * @pre height = 1 && width = 3 && byte (i,j +1 ) = 0 ignorarán el 0 intermedio. Solo se usa en el zoom.
+   * @pre height = 3 && width = 1 && byte (i + 1,j) = 0 ignorarán el 0 intermedio. Solo se usa en el zoom.
+   * @pre height = 3 && width = 3 && byte (i + 1, j + 1) = byte (i, j + 1) = byte (i + 1, j) = 0 ignorarán todos los 0 intermedios. Solo se usa en el zoom.
+   * @return Devuelve el número de la media.
+   */
+    double Mean(int i, int j, int height, int width) const;
 
-    // Genera un icono como reducción de una imagen.
+
+    /**
+    * @brief Genera un icono como reducción de una imagen.
+    * @param factor múltiplo de la reducción que se quiere hacer
+    * @pre 1 < factor
+    * @pre 0 <= (i && j)
+    * @pre (i && height) <= this->get_rows()
+    * @pre (j && width) <= this->get_cols()
+    * @pre height = 1 && width = 3 && byte (i,j +1 ) = 0 ignorarán el 0 intermedio. Solo se usa en el zoom.
+    * @pre height = 3 && width = 1 && byte (i + 1,j) = 0 ignorarán el 0 intermedio. Solo se usa en el zoom.
+    * @pre height = 3 && width = 3 && byte (i + 1, j + 1) = byte (i, j + 1) = byte (i + 1, j) = 0 ignorarán todos los 0 intermedios. Solo se usa en el zoom.
+    * @return Devuelve la imagen icono.
+    */
     Image Subsample(int factor) const;
 
     /**
@@ -277,14 +304,19 @@ public :
     Image Crop(int nrow, int ncol, int height, int width) const;
 
     // Genera una imagen aumentada 2x.
+    /**
+     * @brief Genera una imagen aumentada 2x.
+     * @return La imagen zoom
+     * @post El objeto que llama a la función no se modifica
+     */
     Image Zoom2X() const;
 
     // Copia el contenido de la imagen pasada como parámetro a la imagen que llama en la posición indicada.
-    void PaintIn(Image & in, int i, int j);
+    void PaintIn(Image &in, int i, int j);
 
     // Baraja pseudoaleatoriamente las filas de una imagen.
     void ShuffleRows();
-} ;
+};
 
 
 #endif // _IMAGEN_H_

@@ -70,8 +70,8 @@ int main (int argc, char *argv[]){
     }
 }
 
-
 /*
+
     Image a;
     a.Initialize(3,3);
     a.set_pixel(0,0,10);
