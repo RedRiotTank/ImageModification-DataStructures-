@@ -245,9 +245,53 @@ Image Image::Subsample(int factor) const {
 Image Image::Zoom2X() const {
     int Newfil = 2 * this->get_rows() - 1;
     int Newcol = 2 * this->get_cols() - 1;
+    int col = this->get_cols();
+    int fil = this->get_rows();
+    int a=0,b = 0;
     Image ZoomedImg;
 
     ZoomedImg.Initialize(Newfil, Newcol);
+
+
+    for (int i = 0; i < ZoomedImg.get_rows(); i++) {
+        for (int j = 0; j < ZoomedImg.get_cols(); j++) {
+
+            if (i % 2 == 0 && j % 2 == 0) {
+
+                ZoomedImg.set_pixel(i, j, this->get_pixel(a,b));
+                b++;
+
+                if(b >= this->get_cols())
+                    a++;
+            }
+
+            if(i % 2 == 0 && j % 2 != 0){
+
+                ZoomedImg.set_pixel(i, j,round(this->Mean(a, b - 1, 1, 2)));
+
+            }
+
+            if(i%2 != 0 && j%2 == 0){
+                ZoomedImg.set_pixel(i, j, round(this->Mean(a-1, b , 2, 1)));
+                b++;
+            }
+
+            if(i%2 != 0 && j%2 != 0) {
+
+                ZoomedImg.set_pixel(i, j, round(this->Mean(a-1, b-1, 2, 2)));
+            }
+
+
+        }
+
+        b = 0;
+
+
+
+    }
+
+    /*
+
 
     //Copiado de valores estandard
     for (int i = 0; i < this->get_rows(); i++)
@@ -269,7 +313,7 @@ Image Image::Zoom2X() const {
         for (int j = 0; j < ZoomedImg.get_cols(); j = j + 2)
             ZoomedImg.set_pixel(i, j, round(ZoomedImg.Mean(i - 1, j, 3, 1)));
 
-
+*/
     return ZoomedImg;
 }
 

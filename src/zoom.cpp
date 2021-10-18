@@ -57,7 +57,7 @@ int main (int argc, char *argv[]){
     cout << "   Imagen   = " << image.get_rows()  << " filas x " << image.get_cols() << " columnas " << endl;
 
     // Calcular el ZOOM
-   // NewImage = image.Crop(fila, col ,lado ,lado).Zoom2X();
+    // NewImage = image.Crop(fila, col ,lado ,lado).Zoom2X();
 
     // Guardar la imagen resultado en el fichero
     if (image.Crop(fila, col ,lado ,lado).Zoom2X().Save(destino))
@@ -70,8 +70,9 @@ int main (int argc, char *argv[]){
     }
 }
 
-/*
 
+
+/*
     Image a;
     a.Initialize(3,3);
     a.set_pixel(0,0,10);
@@ -101,7 +102,7 @@ int main (int argc, char *argv[]){
     return 0;
 
 }
-*/
+
 /*
 int main (int argc, char *argv[]) {
 
