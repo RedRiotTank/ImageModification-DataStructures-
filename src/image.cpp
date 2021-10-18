@@ -213,18 +213,6 @@ double Image::Mean(int i, int j, int height, int width) const {
         for (int b = j; b <= Topwidth; b++)
             sumatorio += get_pixel(a, b);
 
-    //Exclusivos del método zoom
-    if (height == 1 && width == 3 && this->get_pixel(i, j + 1) == 0)
-        divisor--;
-
-    if (height == 3 && width == 1 && this->get_pixel(i + 1, j) == 0)
-        divisor--;
-
-    if (height == 3 && width == 3 && this->get_pixel(i + 1, j + 1) == 0 && this->get_pixel(i, j + 1) == 0 &&
-        this->get_pixel(i + 1, j) == 0)
-        divisor = divisor - 5;
-
-
     return sumatorio / divisor;
 }
 
@@ -245,76 +233,40 @@ Image Image::Subsample(int factor) const {
 Image Image::Zoom2X() const {
     int Newfil = 2 * this->get_rows() - 1;
     int Newcol = 2 * this->get_cols() - 1;
-    int col = this->get_cols();
-    int fil = this->get_rows();
-    int a=0,b = 0;
+    int iOriginalIndex = 0, jOriginalIndex = 0;
     Image ZoomedImg;
 
     ZoomedImg.Initialize(Newfil, Newcol);
-
 
     for (int i = 0; i < ZoomedImg.get_rows(); i++) {
         for (int j = 0; j < ZoomedImg.get_cols(); j++) {
 
             if (i % 2 == 0 && j % 2 == 0) {
+                ZoomedImg.set_pixel(i, j, this->get_pixel(iOriginalIndex, jOriginalIndex));
+                jOriginalIndex++;
 
-                ZoomedImg.set_pixel(i, j, this->get_pixel(a,b));
-                b++;
-
-                if(b >= this->get_cols())
-                    a++;
+                if (jOriginalIndex >= this->get_cols())
+                    iOriginalIndex++;
             }
 
-            if(i % 2 == 0 && j % 2 != 0){
+            if (i % 2 == 0 && j % 2 != 0)
+                ZoomedImg.set_pixel(i, j, round(this->Mean(iOriginalIndex, jOriginalIndex - 1, 1, 2)));
 
-                ZoomedImg.set_pixel(i, j,round(this->Mean(a, b - 1, 1, 2)));
-
+            if (i % 2 != 0 && j % 2 == 0) {
+                ZoomedImg.set_pixel(i, j, round(this->Mean(iOriginalIndex - 1, jOriginalIndex, 2, 1)));
+                jOriginalIndex++;
             }
 
-            if(i%2 != 0 && j%2 == 0){
-                ZoomedImg.set_pixel(i, j, round(this->Mean(a-1, b , 2, 1)));
-                b++;
-            }
-
-            if(i%2 != 0 && j%2 != 0) {
-
-                ZoomedImg.set_pixel(i, j, round(this->Mean(a-1, b-1, 2, 2)));
-            }
-
-
+            if (i % 2 != 0 && j % 2 != 0)
+                ZoomedImg.set_pixel(i, j, round(this->Mean(iOriginalIndex - 1, jOriginalIndex - 1, 2, 2)));
         }
 
-        b = 0;
-
-
+        jOriginalIndex = 0;
 
     }
 
-    /*
-
-
-    //Copiado de valores estandard
-    for (int i = 0; i < this->get_rows(); i++)
-        for (int j = 0; j < this->get_cols(); j++)
-            ZoomedImg.set_pixel(2 * i, 2 * j, this->get_pixel(i, j));
-
-    //Interpolación de 4
-    for (int j = 1; j < ZoomedImg.get_cols(); j = j + 2)
-        for (int i = 1; i < ZoomedImg.get_rows(); i = i + 2)
-            ZoomedImg.set_pixel(i, j, round(ZoomedImg.Mean(i - 1, j - 1, 3, 3)));
-
-    //Interpolación de columnas
-    for (int i = 0; i < ZoomedImg.get_rows(); i = i + 2)
-        for (int j = 1; j < ZoomedImg.get_cols(); j = j + 2)
-            ZoomedImg.set_pixel(i, j, round(ZoomedImg.Mean(i, j - 1, 1, 3)));
-
-    //Interpolación de filas:
-    for (int i = 1; i < ZoomedImg.get_rows(); i = i + 2)
-        for (int j = 0; j < ZoomedImg.get_cols(); j = j + 2)
-            ZoomedImg.set_pixel(i, j, round(ZoomedImg.Mean(i - 1, j, 3, 1)));
-
-*/
     return ZoomedImg;
+
 }
 
 void Image::ShuffleRows(){
