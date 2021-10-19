@@ -1,6 +1,5 @@
 // Fichero: contraste.cpp
-// Modifica el contraste de la imagen que pasamos
-//
+// Modifica el contraste de la imagen pasada como argumento
 
 #include <iostream>
 #include <cstring>
@@ -12,7 +11,7 @@ using namespace std;
 
 int main (int argc, char *argv[]){
 
-    char *origen, *destino; // nombres de los ficheros
+    char *origen, *destino; // Nombre de los ficheros
     Image image;
 
     // Comprobar validez de la llamada

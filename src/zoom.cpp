@@ -1,25 +1,22 @@
 // Fichero: Zoom.cpp
 // Calcula el zoom a una imagen
-//
 
 #include <iostream>
 #include <cstdlib>
-
 #include <image.h>
 
 using namespace std;
 
-
 int main(int argc, char *argv[]) {
 
-    char *origen, *destino; // nombres de los ficheros
+    char *origen, *destino; // Nombre de los ficheros
     Image image;
     Image NewImage;
 
     // Comprobar validez de la llamada
     if (argc != 6) {
         cerr << "Error: Numero incorrecto de parametros.\n";
-        cerr << "Uso: zoom <fich_orig> <fich_rdo> <fila> <col> <filas_sub> <cols_sub>\n";
+        cerr << "Uso: zoom <FichImagenOriginal> <FichImagenOriginal> <fila> <col> <filas_sub> <cols_sub>\n";
         exit(1);
     }
 
@@ -27,19 +24,17 @@ int main(int argc, char *argv[]) {
     origen = argv[1];
     destino = argv[2];
 
-    int
-            fila = atoi(argv[3]),
-            col = atoi(argv[4]),
-            lado = atoi(argv[5]);
-
+    int fila = atoi(argv[3]),
+        col = atoi(argv[4]),
+        lado = atoi(argv[5]);
 
     // Mostramos argumentos
     cout << endl;
     cout << "Fichero origen: " << origen << endl;
     cout << "Fichero resultado: " << destino << endl;
-    cout << "" << fila << endl;
-    cout << "" << col << endl;
-    cout << "" << lado << endl;
+    cout << "Fila inicial para recortar" << fila << endl;
+    cout << "Columna inicial para recortar" << col << endl;
+    cout << "Ancho y largo (imagen cuadrada) de la imagen a la que hacer zoom" << lado << endl;
 
     // Leer la imagen del fichero de entrada
     if (!image.Load(origen)) {
@@ -60,6 +55,5 @@ int main(int argc, char *argv[]) {
         cerr << "Error: No pudo guardarse la imagen." << endl;
         cerr << "Terminando la ejecucion del programa." << endl;
         return 1;
-
     }
 }

@@ -1,6 +1,5 @@
 // Fichero: subimagen.cpp
 // Obtiene una subimagen a partir de otra (PGM)
-//
 
 #include <iostream>
 #include <cstring>
@@ -12,13 +11,13 @@ using namespace std;
 
 int main (int argc, char *argv[]){
 
-    char *origen, *destino; // nombres de los ficheros
+    char *origen, *destino; // Nombre de los ficheros
     Image image;
 
     // Comprobar validez de la llamada
     if (argc != 7){
         cerr << "Error: Numero incorrecto de parametros.\n";
-        cerr << "Uso: subimagen <fich_orig> <fich_rdo> <fila> <col> <filas_sub> <cols_sub>\n";
+        cerr << "Uso: subimagen <FichImagenOriginal> <FichImagenOriginal> <fila> <col> <filas_sub> <cols_sub>\n";
         exit (1);
     }
 
@@ -29,8 +28,6 @@ int main (int argc, char *argv[]){
         col = atoi(argv[4]),
         filas_sub = atoi(argv[5]),
         cols_sub = atoi(argv[6]);
-
-
 
     // Mostramos argumentos
     cout << endl;

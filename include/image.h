@@ -66,7 +66,7 @@ private :
       @param nrows Número de filas que tendrá la imagen. Por defecto, 0
       @param ncols Número de colwnnas que tendrá la imagen. Por defecto, 0
       @param buffer Puntero a un buffer de datos con los que rellenar los píxeles de la imagen. Por defecto, 0.
-      @pre filas >= O y columnas >= O
+      @pre nrows >= O y ncols >= O
       @post Reserva memoria para almacenar la imagen y la prepara para usarse.
     **/
     void Initialize(int nrows = 0, int ncols = 0, byte *buffer = 0);
@@ -118,7 +118,7 @@ public :
       * @param nrows Número de filas de la imagen.
       * @param ncols Número de columnas de la imagen.
       * @param value defecto Valor con el que inicializar los píxeles de la imagen . Por defecto O.
-      * @pre n fils > O Y n_cols > O
+      * @pre nrows > O y ncols > O
       * @post La imagen creada es de n_fils y n_cols columnas. Estará inicializada al valor por defecto.
       * @return Imagen, el objeto imagen creado.
       */
@@ -252,7 +252,6 @@ public :
     */
     void AdjustContrast(byte in1, byte in2, byte out1, byte out2);
 
-    // Calcula la media de los píxeles de una imagen entera o de un fragmento de ésta.
     /**
    * @brief Calcula la media de los píxeles de una imagen entera o de un fragmento de ésta
    * @param i Fila superior izquierda del fragmeto de imagen al que hacer la media

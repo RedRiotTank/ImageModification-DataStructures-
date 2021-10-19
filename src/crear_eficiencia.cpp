@@ -1,4 +1,7 @@
-#include <cstdlib> 
+// Fichero: crear_eficiencia.cpp
+// Permite calcular la eficiencia de un trozo de código
+
+#include <cstdlib>
 #include <iostream> 
 #include <chrono>
 
@@ -9,7 +12,6 @@ using namespace std;
 auto do_routine(int rows, int cols, int repeats){
     // INICIO PARTE FUERA DEL CRONO
     Image img(rows, cols);
-
     // FIN FUERA DEL CRONO
 
     // start time

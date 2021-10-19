@@ -1,6 +1,5 @@
 // Fichero: icono.cpp
 // Crea un icono de una imagen PGM
-//
 
 #include <iostream>
 #include <cstring>
@@ -11,7 +10,7 @@ using namespace std;
 
 int main (int argc, char *argv[]){
 
-    char *origen, *destino; // nombres de los ficheros
+    char *origen, *destino; // Nombre de los ficheros
     Image image;
     Image NewImage;
     int factor = 0;
@@ -28,11 +27,11 @@ int main (int argc, char *argv[]){
     destino = argv[2];
     factor = atoi(argv[3]);
 
-
     // Mostramos argumentos
     cout << endl;
     cout << "Fichero origen: " << origen << endl;
     cout << "Fichero resultado: " << destino << endl;
+    cout << "Factor de reducción del icono: " << factor << endl;
 
     // Leer la imagen del fichero de entrada
     if (!image.Load(origen)){
@@ -47,10 +46,9 @@ int main (int argc, char *argv[]){
     cout << "   Imagen   = " << image.get_rows()  << " filas x " << image.get_cols() << " columnas " << endl;
 
     // Calcular el icono
-
     NewImage = image.Subsample(factor);
 
-// Guardar la imagen resultado en el fichero
+    // Guardar la imagen resultado en el fichero
     if (NewImage.Save(destino))
         cout  << "La imagen se guardo en " << destino << endl;
     else{

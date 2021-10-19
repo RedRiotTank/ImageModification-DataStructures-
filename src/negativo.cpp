@@ -1,6 +1,5 @@
 // Fichero: negativo.cpp
 // Calcula el negativo de una imagen PGM
-//
 
 #include <iostream>
 #include <cstring>
@@ -12,7 +11,7 @@ using namespace std;
 
 int main (int argc, char *argv[]){
  
-  char *origen, *destino; // nombres de los ficheros
+  char *origen, *destino; // Nombre de los ficheros
   Image image;
 
   // Comprobar validez de la llamada
@@ -44,7 +43,7 @@ int main (int argc, char *argv[]){
   cout << "   Imagen   = " << image.get_rows()  << " filas x " << image.get_cols() << " columnas " << endl;
 
   // Calcular el negativo
-    image.Invert();
+  image.Invert();
 
   // Guardar la imagen resultado en el fichero
   if (image.Save(destino))

@@ -1,10 +1,5 @@
-//
-// Created by albertoplaza on 15/10/21.
-//
-
 // Fichero: barajar.cpp
-// Shuffle de una imagen por filas o columnas
-//
+// Barajado de una imagen por filas
 
 #include <iostream>
 #include <cstdlib>
@@ -13,16 +8,15 @@
 
 using namespace std;
 
-
 int main(int argc, char *argv[]) {
 
-    char *origen, *destino; // nombres de los ficheros
+    char *origen, *destino; // Nombre de los ficheros
     Image image;
 
     // Comprobar validez de la llamada
     if (argc != 3) {
         cerr << "Error: Numero incorrecto de parametros.\n";
-        cerr << "Uso: barajar <fich_orig> <fich_rdo> \n";
+        cerr << "Uso: barajar <FichImagenOriginal> <FichImagenDestino> \n";
         exit(1);
     }
 

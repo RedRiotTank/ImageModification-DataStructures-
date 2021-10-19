@@ -28,10 +28,10 @@ Calcula un recorte de una imagen
 > __Subimagen__ \<FichImagenOriginal\> \<FichImagenDestino\> \<NumFila\> \<NumColumna\> \<height\> \<width\>
 @param "<FichImagenOriginal>" Imagen PGM a la que se va a calcular
 @param <FichImagenDestino> Imagen PGM resultado de calcular el negativo
-@param <NumFila> Número Fila inicial para recortar filas
-@param <NumColumna> Columna inicial para recortar
-@param <height> Número de filas
-@param <width> Número de columnas
+@param <fila> Número Fila inicial para recortar filas
+@param <col> Columna inicial para recortar
+@param <filas_sub> Número de filas
+@param <cols_sub> Número de columnas
 
 @image html cabeza.png "1.2 Vacas subimagen"
 
@@ -43,7 +43,6 @@ Calcula un icono de una imagen
 > __Icono__ \<FichImagenOriginal\> \<FichImagenDestino\> \<Factor\>
 @param "<FichImagenOriginal>" Imagen PGM a la que se va a calcular
 @param <FichImagenDestino> Imagen PGM resultado de calcular el negativo
-@param <NumFila> Número Fila inicial para recortar filas
 @param <Factor> Factor de reducción del icono
 
 
@@ -53,11 +52,11 @@ Calcula un icono de una imagen
 
 Genera una imagen aumentada 2x.
 
-> __Zoom__ \<fich_orig\> \<fich_rdo\> \<fila\> \<col\> \<lado\>
-@param "<fich_orig>" Imagen PGM a la que se va a calcular
-@param <fich_rdo> Imagen PGM resultado de calcular el negativo
-@param <col> Número Fila inicial para recortar filas
-@param <NumColumna> Columna inicial para recortar
+> __Zoom__ \<FichImagenOriginal\> \<FichImagenDestino\> \<fila\> \<col\> \<lado\>
+@param "<FichImagenOriginal>" Imagen PGM a la que se va a calcular
+@param <FichImagenDestino> Imagen PGM resultado de calcular el negativo
+@param <fila> Fila inicial para recortar filas
+@param <col> Columna inicial para recortar
 @param <lado> Ancho y largo (imagen cuadrada) de la imagen a la que hacer zoom
 
 @image html Zoom.png "1.3 Vacas zoom"
@@ -66,9 +65,9 @@ Genera una imagen aumentada 2x.
 
 Modifica el contraste de una Imagen.
 
-> __Contraste__ \<fich_orig\> \<fich_rdo\> \<e1\> \<e2\> \<s1\> \<s2\>
-@param "<fich_orig>" Imagen PGM a la que se va a cambiar el contraste
-@param <fich_rdo> Imagen PGM resultado del cambio de contraste
+> __Contraste__ \<FichImagenOriginal\> \<FichImagenDestino\> \<e1\> \<e2\> \<s1\> \<s2\>
+@param "<FichImagenOriginal>" Imagen PGM a la que se va a cambiar el contraste
+@param <FichImagenDestino> Imagen PGM resultado del cambio de contraste
 @param <e1> Umbral inferior de la imagen de entrada
 @param <e2> Umbral superior de la imagen de entrada
 @param <s1> Umbral inferior de la imagen de salida
@@ -80,10 +79,10 @@ Modifica el contraste de una Imagen.
 
 Umbral superior de la imagen de salida.
 
-> __Barajar__ \<fich_orig\> \<fich_rdo\>
+> __Barajar__ \<FichImagenOriginal\> \<FichImagenDestino\>
 
-@param "<fich_orig>" Imagen PGM a la que se le va a barajar las filas
-@param <fich_rdo> Imagen PGM resultado del barajado de filas
+@param "<FichImagenOriginal>" Imagen PGM a la que se le va a barajar las filas
+@param <FichImagenDestino> Imagen PGM resultado del barajado de filas
 
 
 
