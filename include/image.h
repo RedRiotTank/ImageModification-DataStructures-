@@ -243,7 +243,6 @@ public :
       */
     bool Load(const char *file_path);
 
-    // Invierte
     /**
       * @brief Invierte el color de una imagenn.
       * @post El objeto que llama a la función es modificado
@@ -307,10 +306,9 @@ public :
      */
     Image Crop(int nrow, int ncol, int height, int width) const;
 
-    // Genera una imagen aumentada 2x.
     /**
      * @brief Genera una imagen aumentada 2x.
-     * @return La imagen zoom
+     * @return La imagen con zoom
      * @post El objeto que llama a la función no se modifica
      */
     Image Zoom2X() const;
@@ -318,7 +316,11 @@ public :
     // Copia el contenido de la imagen pasada como parámetro a la imagen que llama en la posición indicada.
     void PaintIn(Image &in, int i, int j);
 
-    // Baraja pseudoaleatoriamente las filas de una imagen.
+
+    /**
+     * @brief Baraja pseudoaleatoriamente las filas de una imagen.
+     * @post El objeto que llama a la función es modificado
+     */
     void ShuffleRows();
 };
 
