@@ -1,33 +1,16 @@
-/*! \mainpage Título de la página principal
+/*! \mainpage Página principal
 
-@image html doxyque.png "Pie de foto"
 
-# Información sobre Doxygen
-Doxygen admite el uso de la [sintaxis de Markdown (Consulta aquí los comandos básicos)](https://www.markdownguide.org/basic-syntax).
-
-Así como el uso de  <a href="https://htmlcheatsheet.com/">sintaxis <strong>HTML</strong></a>. Esto es especialmente útil
-para aquellos aspectos que Markdown no permite modificar, como el <span  style="color:red">color</span>. Aunque es buena idea evitarlo en la medida de lo posible, por dos
-motivos:
-
-1. <span style="font-size:1.1em">Hace el código <strong>poco</strong> <span style="  background-image: linear-gradient(to left, #4285f4, #34a853, #fbbc05, #ea4335); -webkit-background-clip: text; color: transparent;"> <strong> LEGIBLE </strong> </span></span>
-2. La idea detrás de Markdown es separar _aspecto_ y _contenido_. Y es una __gran idea__.
-
-La forma más correcta de modificar el aspecto debería ser mediante un documento ``.css`` configurado en el archivo ``Doxyfile.in``.
-Si te interesa, puedes echarle un vistazo a la [documentación](https://www.doxygen.nl/manual/customize.html) o a
-temas customizados como [este](https://jothepro.github.io/doxygen-awesome-css/). Aunque el tema por defecto nos parece
-perfecto, _CLÁSICO_. Así puedes centrarte en el contenido.
-
-Por último, lo hemos visto en clase y hay suficientes ejemplos en el código fuente proporcionado, pero puedes consultar la
-mayor parte de la sintaxis de Doxygen para comentar código en su
-[documentación](https://www.doxygen.nl/manual/docblocks.html).
 
 # Introducción
 
-A RELLENAR POR EL ESTUDIANTE
+A lo largo de esta documentación desarrollaremos el correcto uso de los diferentes métodos que aportamos, tomando como referencia la imagen 1 (Vacas (original))
+
+@image html vacas.png "1: vacas (original)"
 
 # Ejecutables
 
-@image html invert.png
+
 ## Negativo:
 
 Calcula el negativo de una imagen
@@ -36,6 +19,87 @@ Calcula el negativo de una imagen
 @param "<FichImagenOriginal>" Imagen PGM a la que se va a calcular
 @param <FichImagenDestino> Imagen PGM resultado de calcular el negativo
 
+@image html vacas_inv2.png "1.1 Vacas negativo"
+
+## Subimagen:
+
+Calcula un recorte de una imagen
+
+> __Subimagen__ \<FichImagenOriginal\> \<FichImagenDestino\> \<NumFila\> \<NumColumna\> \<height\> \<width\>
+@param "<FichImagenOriginal>" Imagen PGM a la que se va a calcular
+@param <FichImagenDestino> Imagen PGM resultado de calcular el negativo
+@param <NumFila> Número Fila inicial para recortar filas
+@param <NumColumna> Columna inicial para recortar
+@param <height> Número de filas
+@param <width> Número de columnas
+
+@image html cabeza.png "1.2 Vacas subimagen"
 
 
+## Icono:
+
+Calcula un icono de una imagen
+
+> __Icono__ \<FichImagenOriginal\> \<FichImagenDestino\> \<Factor\>
+@param "<FichImagenOriginal>" Imagen PGM a la que se va a calcular
+@param <FichImagenDestino> Imagen PGM resultado de calcular el negativo
+@param <NumFila> Número Fila inicial para recortar filas
+@param <Factor> Factor de reducción del icono
+
+
+@image html vacas_Icono.png "1.2 Vacas icono"
+
+## Zoom:
+
+Genera una imagen aumentada 2x.
+
+> __Zoom__ \<fich_orig\> \<fich_rdo\> \<fila\> \<col\> \<lado\>
+@param "<fich_orig>" Imagen PGM a la que se va a calcular
+@param <fich_rdo> Imagen PGM resultado de calcular el negativo
+@param <col> Número Fila inicial para recortar filas
+@param <NumColumna> Columna inicial para recortar
+@param <lado> Ancho y largo (imagen cuadrada) de la imagen a la que hacer zoom
+
+@image html Zoom.png "1.3 Vacas zoom"
+
+## Contraste:
+
+Modifica el contraste de una Imagen.
+
+> __Contraste__ \<fich_orig\> \<fich_rdo\> \<e1\> \<e2\> \<s1\> \<s2\>
+@param "<fich_orig>" Imagen PGM a la que se va a cambiar el contraste
+@param <fich_rdo> Imagen PGM resultado del cambio de contraste
+@param <e1> Umbral inferior de la imagen de entrada
+@param <e2> Umbral superior de la imagen de entrada
+@param <s1> Umbral inferior de la imagen de salida
+@param <s2> Umbral superior de la imagen de salida
+
+@image html vaca_contrastada.png "1.4 Vacas contrastadas"
+
+## Barajar:
+
+Umbral superior de la imagen de salida.
+
+> __Barajar__ \<fich_orig\> \<fich_rdo\>
+
+@param "<fich_orig>" Imagen PGM a la que se le va a barajar las filas
+@param <fich_rdo> Imagen PGM resultado del barajado de filas
+
+
+
+### Análisis de eficiencia:
+
+Tras realizar el análisis de eficiencia mediante el programa *crear_eficiencia* proporcionado por los profesores,
+podemos observar como varía la complejidad computacional empezando desde O(rows*col) con la implementación inicial
+hasta O(rows) tras realizar las pertinentes modificaciones al cambiar la representación de nuestro TDA.
+
+#### Primer sistema de representación:
+@image html sizeoriginal.png
+@image html rowsoriginal.png
+@image html colsoriginal.png
+
+#### Nuevo sistema de representación:
+@image html sizerap.png
+@image html rowsrap.png
+@image html colsrap.png
 */

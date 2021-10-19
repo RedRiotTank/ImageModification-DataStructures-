@@ -41,7 +41,6 @@ void Image::Initialize(int nrows, int ncols, byte *buffer) {
 }
 
 // Función auxiliar para copiar objetos Imagen
-
 void Image::Copy(const Image &orig) {
     Initialize(orig.rows, orig.cols);
     for (int k = 0; k < rows * cols; k++)
@@ -94,20 +93,17 @@ bool Image::Load(const char *file_path) {
 }
 
 // Constructor de copias
-
 Image::Image(const Image &orig) {
     assert (this != &orig);
     Copy(orig);
 }
 
 // Destructor
-
 Image::~Image() {
     Destroy();
 }
 
 // Operador de Asignación
-
 Image &Image::operator=(const Image &orig) {
     if (this != &orig) {
         Destroy();
@@ -140,24 +136,25 @@ byte Image::get_pixel(int i, int j) const {
 }
 
 // This doesn't work if representation changes
-void Image::set_pixel(int k, byte value) {
+void Image::set_pixel (int k, byte value) {
     // TODO this makes assumptions about the internal representation
     // TODO Can you reuse set_pixel(i,j,value)?
-    img[0][k] = value;
+
+    set_pixel(k/cols, k%cols, value);
 }
 
 // This doesn't work if representation changes
-byte Image::get_pixel(int k) const {
+// This doesn't work if representation changes
+byte Image::get_pixel (int k) const {
     // TODO this makes assumptions about the internal representation
     // TODO Can you reuse get_pixel(i,j)?
-    return img[0][k];
+    return get_pixel(k/cols, k%cols);
 }
 
 // Métodos para almacenar y cargar imagenes en disco
-bool Image::Save(const char *file_path) const {
+bool Image::Save (const char * file_path) const {
     // TODO this makes assumptions about the internal representation
-    byte *p = img[0];
-    return WritePGMImage(file_path, p, rows, cols);
+    return WritePGMImage(file_path, Image(*this).img[0], rows, cols);
 }
 
 //Métodos implementados
@@ -269,16 +266,18 @@ Image Image::Zoom2X() const {
 
 }
 
-void Image::ShuffleRows(){
+void Image::ShuffleRows() {
     const int p = 9973;
-    Image temp(rows,cols);
+    byte ** bayt = this->img;
+    img = new byte*[this->get_rows()];
     int newr;
-    for (int r=0; r<rows; r++){
-        newr = r*p%rows;
-        for (int c=0; c<cols;c++)
-            temp.set_pixel(r,c,get_pixel(newr,c));
+
+    for (int r=0; r<this->get_rows(); r++) {
+        newr = r * p % this->get_rows();
+        img[r] = bayt[newr];
     }
-    Copy(temp);
+    delete [] bayt;
+
 }
 
 

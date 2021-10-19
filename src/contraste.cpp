@@ -1,6 +1,3 @@
-//
-// Created by is on 13/10/21.
-//
 // Fichero: contraste.cpp
 // Modifica el contraste de la imagen que pasamos
 //
@@ -21,7 +18,7 @@ int main (int argc, char *argv[]){
     // Comprobar validez de la llamada
     if (argc != 7){
         cerr << "Error: Numero incorrecto de parametros.\n";
-        cerr << "Uso: subimagen <fich_orig> <fich_rdo> <fila> <col> <filas_sub> <cols_sub>\n";
+        cerr << "Uso: contraste <fich_orig> <fich_rdo> <e1> <e2> <s1> <s2>\n";
         exit (1);
     }
 

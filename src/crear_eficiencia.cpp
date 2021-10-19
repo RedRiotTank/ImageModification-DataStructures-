@@ -8,7 +8,7 @@ using namespace std;
 
 auto do_routine(int rows, int cols, int repeats){
     // INICIO PARTE FUERA DEL CRONO
-    // ...
+    Image img(rows, cols);
 
     // FIN FUERA DEL CRONO
 
@@ -17,7 +17,7 @@ auto do_routine(int rows, int cols, int repeats){
 
     // INICIO PARTE DENTRO DEL CRONO
     for (int j=0; j<repeats; j++){
-        Image im(rows,cols);
+        img.ShuffleRows();
     }
     //FIN PARTE DENTRO DEL CRONO
 

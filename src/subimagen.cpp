@@ -1,6 +1,3 @@
-//
-// Created by is on 11/10/21.
-//
 // Fichero: subimagen.cpp
 // Obtiene una subimagen a partir de otra (PGM)
 //

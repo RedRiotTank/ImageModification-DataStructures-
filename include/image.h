@@ -38,17 +38,6 @@ enum LoadResult : unsigned char {
 **/
 
 class Image {
-    /**
-      @page repImagen Representación del TDA Imagen .
-
-      @section invImagen Invariante de la representación.
-
-      RELLENAR POR ESTUDIANTE
-
-      @section faImagen Función de abstracción
-
-      RELLENAR POR ESTUDIANTE
-    **/
 
 private :
 
@@ -250,6 +239,7 @@ public :
     void Invert();
 
     /**
+    * @image html vaca_contrastada.png "AdjustContrast"
     * @brief Modifica el contraste de una Imagen.
     * @param in1 Umbral inferior de la imagen de entrada
     * @param in2 Umbral superior de la imagen de entrada
@@ -273,29 +263,24 @@ public :
    * @pre 0 <= (i && j)
    * @pre (i && height) <= this->get_rows()
    * @pre (j && width) <= this->get_cols()
-   * @pre height = 1 && width = 3 && byte (i,j +1 ) = 0 ignorarán el 0 intermedio. Solo se usa en el zoom.
-   * @pre height = 3 && width = 1 && byte (i + 1,j) = 0 ignorarán el 0 intermedio. Solo se usa en el zoom.
-   * @pre height = 3 && width = 3 && byte (i + 1, j + 1) = byte (i, j + 1) = byte (i + 1, j) = 0 ignorarán todos los 0 intermedios. Solo se usa en el zoom.
    * @return Devuelve el número de la media.
    */
     double Mean(int i, int j, int height, int width) const;
 
-
     /**
+    * @image html vacas_Icono.png "Subsambple"
     * @brief Genera un icono como reducción de una imagen.
     * @param factor múltiplo de la reducción que se quiere hacer
     * @pre 1 < factor
     * @pre 0 <= (i && j)
     * @pre (i && height) <= this->get_rows()
     * @pre (j && width) <= this->get_cols()
-    * @pre height = 1 && width = 3 && byte (i,j +1 ) = 0 ignorarán el 0 intermedio. Solo se usa en el zoom.
-    * @pre height = 3 && width = 1 && byte (i + 1,j) = 0 ignorarán el 0 intermedio. Solo se usa en el zoom.
-    * @pre height = 3 && width = 3 && byte (i + 1, j + 1) = byte (i, j + 1) = byte (i + 1, j) = 0 ignorarán todos los 0 intermedios. Solo se usa en el zoom.
     * @return Devuelve la imagen icono.
     */
     Image Subsample(int factor) const;
 
     /**
+     * @image html cabeza.png "Crop"
      * @brief Genera una subimagen con un tamaño menor o igual al de la original.
      * @param nrow Fila inicial para recortar
      * @param ncol Columna inicial para recortar
@@ -307,15 +292,12 @@ public :
     Image Crop(int nrow, int ncol, int height, int width) const;
 
     /**
+     * @image html Zoom.png "Zoom"
      * @brief Genera una imagen aumentada 2x.
      * @return La imagen con zoom
      * @post El objeto que llama a la función no se modifica
      */
     Image Zoom2X() const;
-
-    // Copia el contenido de la imagen pasada como parámetro a la imagen que llama en la posición indicada.
-    void PaintIn(Image &in, int i, int j);
-
 
     /**
      * @brief Baraja pseudoaleatoriamente las filas de una imagen.

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <image.h>
+#include <chrono>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ int main(int argc, char *argv[]) {
     // Comprobar validez de la llamada
     if (argc != 3) {
         cerr << "Error: Numero incorrecto de parametros.\n";
-        cerr << "Uso: subimagen <fich_orig> <fich_rdo> <fila> <col> <filas_sub> <cols_sub>\n";
+        cerr << "Uso: barajar <fich_orig> <fich_rdo> \n";
         exit(1);
     }
 

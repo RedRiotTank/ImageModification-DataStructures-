@@ -1,7 +1,3 @@
-//
-// Created by albertoplaza on 15/10/21.
-//
-
 // Fichero: Zoom.cpp
 // Calcula el zoom a una imagen
 //
@@ -23,7 +19,7 @@ int main(int argc, char *argv[]) {
     // Comprobar validez de la llamada
     if (argc != 6) {
         cerr << "Error: Numero incorrecto de parametros.\n";
-        cerr << "Uso: subimagen <fich_orig> <fich_rdo> <fila> <col> <filas_sub> <cols_sub>\n";
+        cerr << "Uso: zoom <fich_orig> <fich_rdo> <fila> <col> <filas_sub> <cols_sub>\n";
         exit(1);
     }
 
@@ -41,6 +37,9 @@ int main(int argc, char *argv[]) {
     cout << endl;
     cout << "Fichero origen: " << origen << endl;
     cout << "Fichero resultado: " << destino << endl;
+    cout << "" << fila << endl;
+    cout << "" << col << endl;
+    cout << "" << lado << endl;
 
     // Leer la imagen del fichero de entrada
     if (!image.Load(origen)) {
